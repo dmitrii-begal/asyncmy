@@ -14,17 +14,19 @@ jobs:
       - uses: actions/setup-python@v4
       - name: Run image
         uses: abatilo/actions-poetry@v2
-      - name: View poetry --help
-        run: poetry build
       - name: Fake wheel build
         run: |
           mkdir wheelhouse
           touch wheelhouse/fake_wheel.whl
+      - name: View poetry --help
+        run: poetry build
+      - name: Copy .tar.gz
+        run: |
+          cp dist/*.tar.gz wheelhouse/
       - uses: actions/upload-artifact@v3
         with:
           path: | 
-            wheelhouse/*.whl
-            dist/*.tar.gz
+            wheelhouse/
       - name: List files
         run: |
           ls -al ./
