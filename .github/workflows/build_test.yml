@@ -16,7 +16,7 @@ jobs:
       - name: Fake wheel build
         run: |
           mkdir wheelhouse
-          touch wheelhouse/fake_wheel{{ $matrix.python-version }}.whl
+          touch wheelhouse/fake_wheel${{ matrix.python-version }}.whl
       - uses: actions/upload-artifact@v3
         with:
           name: wheels
