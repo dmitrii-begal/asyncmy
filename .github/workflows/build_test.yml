@@ -12,9 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
+      - name: List files Pre
+        run: |
+          ls -al ./
+          ls -al dist/
       - uses: pypa/cibuildwheel@v2.12.0
         env:
           CIBW_SKIP: cp36-*
+          CIBW_BUILD: cp311-*
       - uses: actions/upload-artifact@v3
         with:
           path: wheelhouse/
