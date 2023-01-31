@@ -18,6 +18,8 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           path: wheelhouse/
-      - run: | ls -al .
-        ls -al dist/
-        ls -al wheelhouse/
+      - name: List files
+        run: |
+          ls -al ./
+          ls -al dist/
+          ls -al wheelhouse/
