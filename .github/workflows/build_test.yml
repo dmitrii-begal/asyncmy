@@ -8,6 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        python-version: [ "3.7", "3.8"]
         os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
@@ -15,7 +16,7 @@ jobs:
       - name: Fake wheel build
         run: |
           mkdir wheelhouse
-          touch wheelhouse/fake_wheel.whl
+          touch wheelhouse/fake_wheel{{ $matrix.python-version }}.whl
       - uses: actions/upload-artifact@v3
         with:
           name: wheels
