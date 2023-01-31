@@ -16,15 +16,30 @@ jobs:
         uses: abatilo/actions-poetry@v2
       - name: View poetry --help
         run: poetry build
-      - uses: pypa/cibuildwheel@v2.12.0
-        env:
-          CIBW_SKIP: cp36-*
-          CIBW_BUILD: cp311-*
+      - name: Fake wheel build
+        run: |
+          mkdir wheelhouse
+          touch wheelhouse/fake_wheel.whl
       - uses: actions/upload-artifact@v3
         with:
-          path: wheelhouse/
+          path: | 
+            wheelhouse/*.whl
+            dist/*.tar.gz
       - name: List files
         run: |
           ls -al ./
           ls -al wheelhouse/
           ls -al dist/
+  upload:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          path: wheelhouse
+      - name: List files
+        run: | 
+          ls -al .
+          ls -al wheelhouse
+          ls -al wheelhouse/artifact
