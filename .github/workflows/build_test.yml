@@ -1,0 +1,23 @@
+name: build_test
+on:
+  release:
+    types:
+      - created
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - uses: pypa/cibuildwheel@v2.12.0
+        env:
+          CIBW_SKIP: cp36-*
+      - uses: actions/upload-artifact@v3
+        with:
+          path: wheelhouse/
+      - run: | ls -al .
+        ls -al dist/
+        ls -al wheelhouse/
