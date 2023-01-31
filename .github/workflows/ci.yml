@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
       - main
+      - dmitrii-begal-patch-1
   pull_request:
 jobs:
   ci:
